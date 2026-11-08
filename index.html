@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Viewport optimized for mobile & X (Twitter) in-app browser to prevent unwanted zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Troll On-Site Club | $7 Trillion Spree</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. INTRO SPLASH SCREEN (Fades out automatically on load) -->
+  <div id="splash-screen">
+    <div class="splash-box">
+      <h1>WELCOME TO THE<br>TROLL ON-SITE CLUB</h1>
+      <p>[ INITIALIZING 7 TRILLION DOLLARS... ]</p>
+    </div>
+  </div>
+
+  <!-- 2. MAIN GAME CONTAINER -->
+  <main id="game-container">
+    
+    <!-- Top Dashboard: Player Name & Live Balance -->
+    <header class="dashboard">
+      <div class="player-info">
+        <label for="player-name">PLAYER:</label>
+        <input type="text" id="player-name" value="you" maxlength="16" aria-label="Player Name">
+      </div>
+      <div class="balance-container">
+        <span class="balance-label">NET WORTH REMAINING</span>
+        <div id="balance-display">$7,000,000,000,000</div>
+      </div>
+    </header>
+
+    <!-- Continent Selection Bar -->
+    <section class="controls-section">
+      <div class="section-title">1. SELECT CONTINENT</div>
+      <div id="continent-tabs" class="continent-grid">
+        <!-- Populated dynamically via script.js -->
+      </div>
+
+      <!-- Category Dropdown Selector -->
+      <div class="category-row">
+        <label for="category-select" class="section-title">2. ASSET CLASS:</label>
+        <select id="category-select">
+          <option value="companies">Top 3 Highest Net Worth Companies</option>
+          <option value="militaries">Top 3 Militaries + Equipment</option>
+          <option value="buildings">Top 3 Most Expensive Buildings</option>
+          <option value="jets">Top 3 Private Jets</option>
+          <option value="cars">Top 3 Most Expensive Cars</option>
+          <option value="musicians">Top 3 Paid Musicians (Private Performance)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Market / Asset Listing Area -->
+    <section id="items-list" class="items-container">
+      <!-- Top 3 items for selected Continent + Category render here -->
+    </section>
+
+    <!-- Bottom Dock: Literal 2-Bit Character in Lower Middle -->
+    <footer class="character-dock">
+      <div id="speech-bubble" class="speech-bubble">SPEND IT ALL, YOU!</div>
+      <!-- 16x16 Pixel Art Canvas scaled up cleanly -->
+      <canvas id="pixel-char" width="16" height="16"></canvas>
+    </footer>
+
+  </main>
+
+  <!-- 3. VICTORY MODAL (Triggered when balance hits $0) -->
+  <div id="victory-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>MISSION COMPLETE</h2>
+      <p class="victory-quote">“congrats you are the richest person in the world.. now go back to scrolling”</p>
+      <button id="reset-btn">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
