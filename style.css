@@ -1,0 +1,367 @@
+/* ==========================================================================
+   2-BIT YELLOW THEME PALETTE (4 Shades Total)
+   --c0: Deepest Obsidian Bronze (Ink / Borders / Text)
+   --c1: Mustard Gold (Mid-dark UI accents / Shadows)
+   --c2: Classic 2-Bit Yellow (Primary Surface)
+   --c3: Pale Lemon Cream (Highlights / Cards / Active states)
+   ========================================================================== */
+:root {
+  --c0: #241c00;
+  --c1: #8c7300;
+  --c2: #f5d000;
+  --c3: #fff9cc;
+  --font-retro: 'Courier New', Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* Prevents double-tap zoom lag in X (Twitter) iOS/Android in-app browser */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--c2);
+  color: var(--c0);
+  font-family: var(--font-retro);
+  font-weight: 700;
+  /* 100dvh adapts smoothly to X browser top/bottom bars */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   INTRO SPLASH SCREEN
+   ========================================================================== */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  background-color: var(--c0);
+  color: var(--c2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  text-align: center;
+  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+#splash-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-box {
+  border: 4px solid var(--c2);
+  padding: 24px;
+  max-width: 420px;
+  box-shadow: 6px 6px 0px var(--c1);
+}
+
+.splash-box h1 {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.splash-box p {
+  font-size: 0.85rem;
+  color: var(--c3);
+}
+
+/* ==========================================================================
+   MAIN GAME LAYOUT
+   ========================================================================== */
+#game-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 12px 12px 135px 12px; /* Bottom padding leaves room for 2-bit character */
+  flex: 1;
+}
+
+/* Top Dashboard */
+.dashboard {
+  background-color: var(--c3);
+  border: 3px solid var(--c0);
+  box-shadow: 4px 4px 0px var(--c0);
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+#player-name {
+  background-color: var(--c2);
+  border: 2px solid var(--c0);
+  color: var(--c0);
+  font-family: var(--font-retro);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 4px 8px;
+  width: 160px;
+  outline: none;
+}
+
+#player-name:focus {
+  background-color: var(--c3);
+}
+
+.balance-container {
+  border-top: 2px dashed var(--c0);
+  padding-top: 8px;
+}
+
+.balance-label {
+  font-size: 0.75rem;
+  color: var(--c1);
+  display: block;
+}
+
+#balance-display {
+  font-size: clamp(1.15rem, 5vw, 1.65rem);
+  letter-spacing: -0.5px;
+  word-break: break-all;
+}
+
+/* Continent & Category Controls */
+.controls-section {
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.continent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.continent-btn {
+  background-color: var(--c3);
+  border: 2px solid var(--c0);
+  color: var(--c0);
+  font-family: var(--font-retro);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 8px 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--c0);
+  transition: transform 0.05s;
+}
+
+.continent-btn.active {
+  background-color: var(--c0);
+  color: var(--c2);
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
+.category-row {
+  display: flex;
+  flex-direction: column;
+}
+
+#category-select {
+  width: 100%;
+  background-color: var(--c3);
+  border: 3px solid var(--c0);
+  color: var(--c0);
+  font-family: var(--font-retro);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px;
+  box-shadow: 3px 3px 0px var(--c0);
+  outline: none;
+  cursor: pointer;
+}
+
+/* Items List & Cards */
+.items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item-card {
+  background-color: var(--c3);
+  border: 3px solid var(--c0);
+  box-shadow: 4px 4px 0px var(--c0);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.item-name {
+  font-size: 0.95rem;
+}
+
+.item-owned {
+  background-color: var(--c0);
+  color: var(--c2);
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.item-meta {
+  font-size: 0.75rem;
+  color: var(--c1);
+}
+
+.item-price {
+  font-size: 0.95rem;
+  color: var(--c0);
+}
+
+.buy-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.buy-btn {
+  flex: 1;
+  background-color: var(--c2);
+  border: 2px solid var(--c0);
+  color: var(--c0);
+  font-family: var(--font-retro);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 7px 6px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--c0);
+}
+
+.buy-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.buy-btn:disabled {
+  background-color: var(--c3);
+  color: var(--c1);
+  border-color: var(--c1);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   LOWER-MIDDLE 2-BIT CHARACTER DOCK
+   ========================================================================== */
+.character-dock {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 8px;
+  z-index: 100;
+  pointer-events: none; /* Lets user scroll/click behind the dock edges */
+}
+
+.speech-bubble {
+  background-color: var(--c0);
+  color: var(--c3);
+  border: 2px solid var(--c3);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0px var(--c1);
+}
+
+#pixel-char {
+  width: 64px;
+  height: 64px;
+  /* Crisp nearest-neighbor scaling for authentic 2-bit pixel look */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background-color: var(--c2);
+  border: 3px solid var(--c0);
+  box-shadow: 3px 3px 0px var(--c0);
+}
+
+/* ==========================================================================
+   VICTORY POP-UP MODAL
+   ========================================================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(36, 28, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-card {
+  background-color: var(--c2);
+  border: 4px solid var(--c3);
+  box-shadow: 8px 8px 0px var(--c0);
+  padding: 24px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+  background-color: var(--c0);
+  color: var(--c2);
+  padding: 6px;
+}
+
+.victory-quote {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  background-color: var(--c3);
+  border: 2px solid var(--c0);
+  padding: 12px;
+}
+
+#reset-btn {
+  background-color: var(--c0);
+  color: var(--c2);
+  border: 2px solid var(--c3);
+  font-family: var(--font-retro);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  cursor: pointer;
+}
