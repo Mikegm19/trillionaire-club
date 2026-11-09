@@ -1,23 +1,23 @@
 /* ==========================================================================
-   2-BIT YELLOW THEME PALETTE (4 Shades Total)
-   --c0: Deepest Obsidian Bronze (Ink / Borders / Text)
-   --c1: Mustard Gold (Mid-dark UI accents / Shadows)
-   --c2: Classic 2-Bit Yellow (Primary Surface)
-   --c3: Pale Lemon Cream (Highlights / Cards / Active states)
+   TRUE 2-BIT YELLOW RETRO PALETTE (Strictly 4 Colors)
+   --c0: Deep Umber Ink (#211a00)
+   --c1: Dark Bronze Gold (#8a7000)
+   --c2: 2-Bit GameBoy Yellow (#f2cc00)
+   --c3: High-Contrast Lemon Cream (#fff8c4)
    ========================================================================== */
 :root {
-  --c0: #241c00;
-  --c1: #8c7300;
-  --c2: #f5d000;
-  --c3: #fff9cc;
-  --font-retro: 'Courier New', Courier, monospace;
+  --c0: #211a00;
+  --c1: #8a7000;
+  --c2: #f2cc00;
+  --c3: #fff8c4;
+  --font-pixel: 'Courier New', Courier, monospace;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* Prevents double-tap zoom lag in X (Twitter) iOS/Android in-app browser */
+  /* Eliminates 300ms tap delay and accidental pinch-zoom in X mobile browser */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -25,9 +25,8 @@
 body {
   background-color: var(--c2);
   color: var(--c0);
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-weight: 700;
-  /* 100dvh adapts smoothly to X browser top/bottom bars */
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -35,7 +34,7 @@ body {
 }
 
 /* ==========================================================================
-   INTRO SPLASH SCREEN
+   1. INTRO SPLASH SCREEN
    ========================================================================== */
 #splash-screen {
   position: fixed;
@@ -45,10 +44,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 20px;
+  z-index: 3000;
+  padding: 18px;
   text-align: center;
-  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+  transition: opacity 0.85s ease, visibility 0.85s ease;
 }
 
 #splash-screen.fade-out {
@@ -59,113 +58,212 @@ body {
 
 .splash-box {
   border: 4px solid var(--c2);
-  padding: 24px;
-  max-width: 420px;
+  background-color: var(--c0);
+  padding: 22px 18px;
+  max-width: 440px;
   box-shadow: 6px 6px 0px var(--c1);
 }
 
-.splash-box h1 {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin-bottom: 12px;
+.glitch-tag {
+  display: inline-block;
+  background-color: var(--c2);
+  color: var(--c0);
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  margin-bottom: 10px;
 }
 
-.splash-box p {
-  font-size: 0.85rem;
+.splash-box h1 {
+  font-size: 1.45rem;
+  line-height: 1.3;
+  margin-bottom: 12px;
   color: var(--c3);
 }
 
-/* ==========================================================================
-   MAIN GAME LAYOUT
-   ========================================================================== */
-#game-container {
+.splash-lore {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--c2);
+  margin-bottom: 16px;
+}
+
+.loading-bar {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 12px 12px 135px 12px; /* Bottom padding leaves room for 2-bit character */
-  flex: 1;
+  height: 10px;
+  border: 2px solid var(--c2);
+  padding: 1px;
 }
 
-/* Top Dashboard */
-.dashboard {
+.loading-fill {
+  height: 100%;
   background-color: var(--c3);
-  border: 3px solid var(--c0);
-  box-shadow: 4px 4px 0px var(--c0);
-  padding: 12px;
-  margin-bottom: 14px;
+  width: 0%;
+  animation: loadProgress 2.6s linear forwards;
 }
 
-.player-info {
+@keyframes loadProgress {
+  to { width: 100%; }
+}
+
+/* ==========================================================================
+   2. WORLD NEWS TICKER
+   ========================================================================== */
+.news-ticker-bar {
+  background-color: var(--c0);
+  color: var(--c3);
+  border-bottom: 3px solid var(--c0);
+  padding: 6px 10px;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.ticker-badge {
+  background-color: var(--c2);
+  color: var(--c0);
+  padding: 1px 5px;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+#news-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   3. MAIN GAME & STORY HUD
+   ========================================================================== */
+#game-container {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  /* Extra bottom padding so the fixed RPG dialogue & 2-bit character never block cards */
+  padding: 10px 10px 185px 10px;
+  flex: 1;
+}
+
+.hud-card {
+  background-color: var(--c3);
+  border: 3px solid var(--c0);
+  box-shadow: 4px 4px 0px var(--c0);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.hud-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.chapter-badge {
+  background-color: var(--c0);
+  color: var(--c2);
+  font-size: 0.72rem;
+  padding: 3px 7px;
+}
+
+.mini-btn {
+  background-color: var(--c2);
+  color: var(--c0);
+  border: 2px solid var(--c0);
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 3px 7px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--c0);
+}
+
+.identity-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  margin-bottom: 8px;
 }
 
 #player-name {
   background-color: var(--c2);
   border: 2px solid var(--c0);
   color: var(--c0);
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-weight: 700;
-  font-size: 0.95rem;
-  padding: 4px 8px;
-  width: 160px;
+  font-size: 0.88rem;
+  padding: 3px 8px;
+  width: 145px;
   outline: none;
 }
 
-#player-name:focus {
-  background-color: var(--c3);
-}
-
-.balance-container {
+.vault-box {
   border-top: 2px dashed var(--c0);
-  padding-top: 8px;
+  padding-top: 6px;
 }
 
-.balance-label {
-  font-size: 0.75rem;
+.vault-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
   color: var(--c1);
-  display: block;
 }
 
 #balance-display {
-  font-size: clamp(1.15rem, 5vw, 1.65rem);
-  letter-spacing: -0.5px;
+  font-size: clamp(1.1rem, 4.8vw, 1.55rem);
+  margin: 2px 0 6px 0;
   word-break: break-all;
 }
 
-/* Continent & Category Controls */
-.controls-section {
-  margin-bottom: 14px;
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--c2);
+  border: 2px solid var(--c0);
 }
 
-.section-title {
-  font-size: 0.8rem;
-  margin-bottom: 6px;
-  display: block;
-  text-transform: uppercase;
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--c0);
+  transition: width 0.25s ease;
+}
+
+/* ==========================================================================
+   4. CONTINENT & ASSET CONTROLS
+   ========================================================================== */
+.story-nav {
+  margin-bottom: 12px;
+}
+
+.step-header {
+  font-size: 0.75rem;
+  margin-bottom: 5px;
 }
 
 .continent-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 .continent-btn {
   background-color: var(--c3);
   border: 2px solid var(--c0);
   color: var(--c0);
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-weight: 700;
-  font-size: 0.75rem;
-  padding: 8px 4px;
+  font-size: 0.72rem;
+  padding: 7px 3px;
   cursor: pointer;
   box-shadow: 2px 2px 0px var(--c0);
-  transition: transform 0.05s;
 }
 
 .continent-btn.active {
@@ -175,9 +273,10 @@ body {
   transform: translate(2px, 2px);
 }
 
-.category-row {
-  display: flex;
-  flex-direction: column;
+.dropdown-label {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
 }
 
 #category-select {
@@ -185,16 +284,17 @@ body {
   background-color: var(--c3);
   border: 3px solid var(--c0);
   color: var(--c0);
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-weight: 700;
-  font-size: 0.85rem;
-  padding: 10px;
+  font-size: 0.8rem;
+  padding: 8px;
   box-shadow: 3px 3px 0px var(--c0);
   outline: none;
-  cursor: pointer;
 }
 
-/* Items List & Cards */
+/* ==========================================================================
+   5. STORY ASSET CARDS
+   ========================================================================== */
 .items-container {
   display: flex;
   flex-direction: column;
@@ -205,45 +305,48 @@ body {
   background-color: var(--c3);
   border: 3px solid var(--c0);
   box-shadow: 4px 4px 0px var(--c0);
-  padding: 10px 12px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .item-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 8px;
+  gap: 6px;
 }
 
 .item-name {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .item-owned {
   background-color: var(--c0);
   color: var(--c2);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   padding: 2px 6px;
   white-space: nowrap;
 }
 
-.item-meta {
+.item-lore {
   font-size: 0.75rem;
-  color: var(--c1);
+  line-height: 1.35;
+  color: var(--c0);
+  background-color: var(--c2);
+  border-left: 3px solid var(--c0);
+  padding: 4px 6px;
 }
 
 .item-price {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--c0);
 }
 
 .buy-actions {
   display: flex;
-  gap: 6px;
-  margin-top: 2px;
+  gap: 5px;
 }
 
 .buy-btn {
@@ -251,10 +354,10 @@ body {
   background-color: var(--c2);
   border: 2px solid var(--c0);
   color: var(--c0);
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-weight: 700;
-  font-size: 0.8rem;
-  padding: 7px 6px;
+  font-size: 0.73rem;
+  padding: 6px 4px;
   cursor: pointer;
   box-shadow: 2px 2px 0px var(--c0);
 }
@@ -269,41 +372,66 @@ body {
   color: var(--c1);
   border-color: var(--c1);
   box-shadow: none;
+  opacity: 0.55;
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
 /* ==========================================================================
-   LOWER-MIDDLE 2-BIT CHARACTER DOCK
+   6. LOWER-MIDDLE 2-BIT CHARACTER & RPG DIALOGUE BOX
    ========================================================================== */
-.character-dock {
+.rpg-dock {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+  width: 100%;
+  max-width: 580px;
+  padding: 0 10px 6px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 8px;
-  z-index: 100;
-  pointer-events: none; /* Lets user scroll/click behind the dock edges */
+  z-index: 200;
+  pointer-events: none;
 }
 
-.speech-bubble {
+.rpg-dialogue-box {
+  width: 100%;
   background-color: var(--c0);
   color: var(--c3);
-  border: 2px solid var(--c3);
-  padding: 4px 10px;
-  font-size: 0.72rem;
-  margin-bottom: 6px;
-  white-space: nowrap;
-  box-shadow: 3px 3px 0px var(--c1);
+  border: 3px solid var(--c3);
+  box-shadow: 0px -3px 0px var(--c0), 4px 4px 0px var(--c1);
+  padding: 8px 10px;
+  margin-bottom: 4px;
+  pointer-events: auto;
+}
+
+.rpg-speaker {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--c2);
+  border-bottom: 1px dashed var(--c1);
+  padding-bottom: 3px;
+  margin-bottom: 4px;
+}
+
+#story-dialogue {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  min-height: 2.7em;
+}
+
+/* Literal 2-Bit Character centered on the lower middle of the screen */
+.char-pedestal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
 }
 
 #pixel-char {
-  width: 64px;
-  height: 64px;
-  /* Crisp nearest-neighbor scaling for authentic 2-bit pixel look */
+  width: 56px;
+  height: 56px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   background-color: var(--c2);
@@ -312,17 +440,17 @@ body {
 }
 
 /* ==========================================================================
-   VICTORY POP-UP MODAL
+   7. MODALS (CHRONICLE & FINAL VICTORY POP-UP)
    ========================================================================== */
 .modal {
   position: fixed;
   inset: 0;
-  background-color: rgba(36, 28, 0, 0.88);
+  background-color: rgba(33, 26, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  z-index: 2000;
+  padding: 18px;
+  z-index: 4000;
 }
 
 .modal.hidden {
@@ -333,35 +461,51 @@ body {
   background-color: var(--c2);
   border: 4px solid var(--c3);
   box-shadow: 8px 8px 0px var(--c0);
-  padding: 24px;
-  max-width: 400px;
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
   text-align: center;
 }
 
 .modal-card h2 {
-  font-size: 1.3rem;
-  margin-bottom: 14px;
+  font-size: 1.2rem;
+  margin: 8px 0 12px 0;
   background-color: var(--c0);
   color: var(--c2);
   padding: 6px;
 }
 
-.victory-quote {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 20px;
+.dossier-log {
   background-color: var(--c3);
   border: 2px solid var(--c0);
-  padding: 12px;
+  padding: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-#reset-btn {
+.victory-quote {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  background-color: var(--c3);
+  border: 3px solid var(--c0);
+  padding: 14px;
+}
+
+.action-btn {
   background-color: var(--c0);
   color: var(--c2);
   border: 2px solid var(--c3);
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-weight: 700;
-  font-size: 0.95rem;
-  padding: 10px 20px;
+  font-size: 0.85rem;
+  padding: 9px 16px;
   cursor: pointer;
 }
