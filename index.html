@@ -2,77 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Viewport optimized for mobile & X (Twitter) in-app browser to prevent unwanted zooming -->
+  <!-- Viewport locked for smooth, lag-free tapping on X (Twitter) iOS & Android in-app browsers -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Troll On-Site Club | $7 Trillion Spree</title>
+  <title>Troll On-Site Club | Interactive 2-Bit Story</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 1. INTRO SPLASH SCREEN (Fades out automatically on load) -->
+  <!-- 1. INTRO SPLASH SCREEN (Fades away automatically to reveal the story) -->
   <div id="splash-screen">
     <div class="splash-box">
+      <div class="glitch-tag">SYSTEM BREACH DETECTED</div>
       <h1>WELCOME TO THE<br>TROLL ON-SITE CLUB</h1>
-      <p>[ INITIALIZING 7 TRILLION DOLLARS... ]</p>
+      <p class="splash-lore">
+        An offshore central bank glitch just wired $7,000,000,000,000 into your account.<br><br>
+        The authorities are tracing the funds. Spend every last dollar across the 6 continents before they freeze your account.
+      </p>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
     </div>
   </div>
 
-  <!-- 2. MAIN GAME CONTAINER -->
+  <!-- 2. BREAKING NEWS STORY TICKER -->
+  <div class="news-ticker-bar">
+    <span class="ticker-badge">LIVE NEWS:</span>
+    <span id="news-text">Mysterious figure known only as "you" infiltrates the Troll On-Site Club with $7 Trillion...</span>
+  </div>
+
+  <!-- 3. MAIN STORY & GAME CONTAINER -->
   <main id="game-container">
-    
-    <!-- Top Dashboard: Player Name & Live Balance -->
-    <header class="dashboard">
-      <div class="player-info">
-        <label for="player-name">PLAYER:</label>
-        <input type="text" id="player-name" value="you" maxlength="16" aria-label="Player Name">
+
+    <!-- Top Story HUD: Chapter Progress, Player Identity, and Remaining Vault -->
+    <header class="hud-card">
+      <div class="hud-top-row">
+        <div class="chapter-badge" id="chapter-display">CHAPTER I: THE $7T GLITCH</div>
+        <button id="dossier-btn" class="mini-btn">CHRONICLE (0)</button>
       </div>
-      <div class="balance-container">
-        <span class="balance-label">NET WORTH REMAINING</span>
+
+      <div class="identity-row">
+        <label for="player-name">OPERATIVE ALIAS:</label>
+        <input type="text" id="player-name" value="you" maxlength="15" aria-label="Player Name">
+      </div>
+
+      <div class="vault-box">
+        <div class="vault-header">
+          <span>UNSPENT CLUB FUNDS</span>
+          <span id="spent-percent">0% LIQUIDATED</span>
+        </div>
         <div id="balance-display">$7,000,000,000,000</div>
+        <!-- Visual 2-bit progress bar showing how close you are to finishing the story -->
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
       </div>
     </header>
 
-    <!-- Continent Selection Bar -->
-    <section class="controls-section">
-      <div class="section-title">1. SELECT CONTINENT</div>
+    <!-- World Map / Continent Narrative Selector -->
+    <section class="story-nav">
+      <div class="step-header">
+        <span>LOCATION: <strong id="current-region-label">NORTH AMERICA</strong></span>
+      </div>
       <div id="continent-tabs" class="continent-grid">
-        <!-- Populated dynamically via script.js -->
+        <!-- Populated by script.js -->
       </div>
 
-      <!-- Category Dropdown Selector -->
-      <div class="category-row">
-        <label for="category-select" class="section-title">2. ASSET CLASS:</label>
+      <!-- Target Asset Class Dropdown -->
+      <div class="dropdown-wrapper">
+        <label for="category-select" class="dropdown-label">ACQUISITION TARGET:</label>
         <select id="category-select">
           <option value="companies">Top 3 Highest Net Worth Companies</option>
           <option value="militaries">Top 3 Militaries + Equipment</option>
           <option value="buildings">Top 3 Most Expensive Buildings</option>
           <option value="jets">Top 3 Private Jets</option>
           <option value="cars">Top 3 Most Expensive Cars</option>
-          <option value="musicians">Top 3 Paid Musicians (Private Performance)</option>
+          <option value="musicians">Top 3 Paid Musicians (To Perform)</option>
         </select>
       </div>
     </section>
 
-    <!-- Market / Asset Listing Area -->
+    <!-- Story Encounters / Asset Cards -->
     <section id="items-list" class="items-container">
-      <!-- Top 3 items for selected Continent + Category render here -->
+      <!-- Populated dynamically with story lore & prices -->
     </section>
-
-    <!-- Bottom Dock: Literal 2-Bit Character in Lower Middle -->
-    <footer class="character-dock">
-      <div id="speech-bubble" class="speech-bubble">SPEND IT ALL, YOU!</div>
-      <!-- 16x16 Pixel Art Canvas scaled up cleanly -->
-      <canvas id="pixel-char" width="16" height="16"></canvas>
-    </footer>
 
   </main>
 
-  <!-- 3. VICTORY MODAL (Triggered when balance hits $0) -->
+  <!-- 4. LOWER-MIDDLE 2-BIT CHARACTER & RPG STORY DIALOGUE DOCK -->
+  <footer class="rpg-dock">
+    <div class="rpg-dialogue-box">
+      <div class="rpg-speaker">
+        <span id="speaker-name">CLUB FIXER</span>
+        <span class="rpg-mood" id="char-status">[IDLE]</span>
+      </div>
+      <p id="story-dialogue">
+        "Listen closely, you. The Troll On-Site Club gave you $7 Trillion. Pick a continent and start buying up the planet before the IMF wakes up."
+      </p>
+    </div>
+
+    <!-- Literal 2-Bit Character centered at the lower middle of the screen -->
+    <div class="char-pedestal">
+      <canvas id="pixel-char" width="16" height="16"></canvas>
+    </div>
+  </footer>
+
+  <!-- 5. CHRONICLE MODAL (Shows the story of everything the player has conquered) -->
+  <div id="dossier-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>THE LEGEND OF <span id="dossier-player-name">YOU</span></h2>
+      <div id="dossier-log" class="dossier-log">
+        <p>You haven't made a move yet. The world awaits your chaos.</p>
+      </div>
+      <button id="close-dossier-btn" class="action-btn">RETURN TO MISSION</button>
+    </div>
+  </div>
+
+  <!-- 6. FINAL VICTORY POP-UP (Exact quote requested when $7T reaches $0) -->
   <div id="victory-modal" class="modal hidden">
     <div class="modal-card">
-      <h2>MISSION COMPLETE</h2>
+      <div class="chapter-badge">FINAL CHAPTER UNLOCKED</div>
+      <h2>WORLD BOUGHT OUT</h2>
       <p class="victory-quote">“congrats you are the richest person in the world.. now go back to scrolling”</p>
-      <button id="reset-btn">PLAY AGAIN</button>
+      <button id="reset-btn" class="action-btn">START NEW TIMELINE</button>
     </div>
   </div>
 
